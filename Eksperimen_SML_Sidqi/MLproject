@@ -1,0 +1,5 @@
+name: Iris_Preprocessing
+
+entry_points:
+  main:
+    command: "python preprocessing/automate_sidqi.py"
