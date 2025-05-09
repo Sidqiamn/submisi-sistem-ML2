@@ -1,0 +1,55 @@
+name: Training Workflow
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.7"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas scikit-learn mlflow joblib dagshub
+      - name: Verify MLproject file
+        run: |
+          ls -la
+          if [ -f "MLproject" ]; then
+            echo "MLproject file found!"
+            cat MLproject
+          else
+            echo "MLproject file not found!"
+            exit 1
+          fi
+      - name: Run MLflow project for training
+        env:
+          MLFLOW_TRACKING_URI: https://dagshub.com/Sidqiamn/Eksperimen_SML_Sidqi.mlflow
+          MLFLOW_TRACKING_USERNAME: Sidqiamn
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+          MLFLOW_S3_ENDPOINT_URL: https://dagshub.com/api/v1/repo-buckets/s3/Sidqiamn
+          AWS_ACCESS_KEY_ID: ${{ secrets.MLFLOW_TRACKING_PUBLIC_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          mlflow run . -e train --env-manager=local
+      - name: Commit trained model
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add models/rf_model_sidqi.joblib
+          git commit -m "Update trained model" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Sidqiamn/Eksperimen_SML_Sidqi.git
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
