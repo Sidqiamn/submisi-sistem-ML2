@@ -1,0 +1,10 @@
+digest: 890d07a9
+name: dataset
+profile: '{"num_rows": 113, "num_elements": 452}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "SepalLengthCm", "required":
+  true}, {"type": "double", "name": "SepalWidthCm", "required": true}, {"type": "double",
+  "name": "PetalLengthCm", "required": true}, {"type": "double", "name": "PetalWidthCm",
+  "required": true}]}'
+source: '{"tags": {"mlflow.user": "ASUS", "mlflow.source.name": "c:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

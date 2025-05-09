@@ -1,5 +1,9 @@
 name: Iris_Preprocessing
 
+python_env: python3
+
 entry_points:
   main:
     command: "python preprocessing/automate_sidqi.py"
+  train:
+    command: "python preprocessing/train_model_sidqi.py"

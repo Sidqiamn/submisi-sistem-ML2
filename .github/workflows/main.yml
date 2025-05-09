@@ -41,7 +41,7 @@ jobs:
           git config --global user.email 'action@github.com'
           git add Eksperimen_SML_Sidqi/dataset/processed/iris_processed.csv
           git commit -m "Update processed dataset" || echo "No changes to commit"
-          # Atur kredensial untuk push menggunakan GITHUB_TOKEN
+
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Sidqiamn/submisi-sistem-ML2.git
           git push
         env:
