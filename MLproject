@@ -7,3 +7,4 @@ entry_points:
     command: "python preprocessing/automate_sidqi.py"
   train:
     command: "python Membangun_model/modelling_tuning.py"
+#dsfdsdfds
