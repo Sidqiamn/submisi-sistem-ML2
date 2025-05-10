@@ -32,7 +32,7 @@ except Exception as e:
 
 # 4. Load dataset yang sudah diproses
 try:
-    dataset_path = "dataset/processed/iris_processed.csv"
+    dataset_path = "iris_dataset/processed/iris_processed.csv"
     data = pd.read_csv(dataset_path)
     print("Kolom dalam dataset:", data.columns)
 except FileNotFoundError:
