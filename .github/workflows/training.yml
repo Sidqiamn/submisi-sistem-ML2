@@ -27,7 +27,6 @@ jobs:
 
       - name: Verify MLproject file
         run: |
-          cd Eksperimen_SML_Sidqi
           ls -la
           if [ -f "MLproject" ]; then
             echo "MLproject file found!"
@@ -39,7 +38,7 @@ jobs:
 
       - name: Verify dataset file
         run: |
-          if [ -f "Eksperimen_SML_Sidqi/dataset/processed/iris_processed.csv" ]; then
+          if [ -f "dataset/processed/iris_processed.csv" ]; then
             echo "Dataset file found!"
           else
             echo "Dataset file not found!"
@@ -48,9 +47,6 @@ jobs:
 
       - name: Debug directory structure
         run: |
-          pwd
-          ls -la
-          cd Eksperimen_SML_Sidqi
           pwd
           ls -la
           if [ -f "Membangun_model/modelling_tuning.py" ]; then
@@ -91,14 +87,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
           AWS_DEFAULT_REGION: us-east-1
         run: |
-          cd Eksperimen_SML_Sidqi
           mlflow run . -e train --env-manager=local
 
       - name: Commit trained model
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add Eksperimen_SML_Sidqi/models/rf_model_sidqi.joblib
+          git add models/rf_model_sidqi.joblib
           git commit -m "Update trained model" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Sidqiamn/Eksperimen_SML_Sidqi.git
           git push
