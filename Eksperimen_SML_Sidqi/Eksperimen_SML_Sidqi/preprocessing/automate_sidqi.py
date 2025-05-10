@@ -10,7 +10,7 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 # Load data mentah
-data = pd.read_csv('dataset/raw/Iris_raw.csv')
+data = pd.read_csv('Eksperimen_SML_Sidqi/dataset/raw/Iris_raw.csv')
 
 
 # Tampilkan kolom untuk verifikasi
