@@ -2,6 +2,6 @@ name: Iris_Preprocessing
 
 entry_points:
   main:
-    command: "python Membangun_model/automate_sidqi.py"
+    command: "python preprocessing/automate_sidqi.py"
   train:
     command: "python Membangun_model/modelling_tuning.py"
