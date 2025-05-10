@@ -39,12 +39,32 @@ jobs:
 
       - name: Verify dataset file
         run: |
-          if [ -f "Membangun_model/dataset/processed/iris_processed.csv" ]; then
+          if [ -f "Eksperimen_SML_Sidqi/dataset/processed/iris_processed.csv" ]; then
             echo "Dataset file found!"
           else
             echo "Dataset file not found!"
             exit 1
           fi
+
+      - name: Debug environment variables
+        env:
+          MLFLOW_TRACKING_URI: https://dagshub.com/Sidqiamn/Eksperimen_SML_Sidqi.mlflow
+          MLFLOW_TRACKING_USERNAME: Sidqiamn
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+          MLFLOW_S3_ENDPOINT_URL: https://dagshub.com/api/v1/repo-buckets/s3/Sidqiamn
+          AWS_ACCESS_KEY_ID: ${{ secrets.MLFLOW_TRACKING_PUBLIC_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          echo "MLFLOW_TRACKING_URI: $MLFLOW_TRACKING_URI"
+          echo "MLFLOW_TRACKING_USERNAME: $MLFLOW_TRACKING_USERNAME"
+          echo "MLFLOW_TRACKING_PASSWORD: $MLFLOW_TRACKING_PASSWORD"
+          echo "MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL"
+          echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
+          echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+          echo "AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION"
+          python --version
+          pip list
 
       - name: Run MLflow project for training
         env:
@@ -57,7 +77,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           cd Eksperimen_SML_Sidqi
-          mlflow run . -e train
+          mlflow run . -e train --no-conda
 
       - name: Commit trained model
         run: |
