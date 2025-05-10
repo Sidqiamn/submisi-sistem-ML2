@@ -77,7 +77,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           cd Eksperimen_SML_Sidqi
-          mlflow run . -e train --no-conda
+          mlflow run . -e train --run-name
 
       - name: Commit trained model
         run: |
