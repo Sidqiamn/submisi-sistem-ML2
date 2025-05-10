@@ -14,14 +14,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python 3.12.7
         uses: actions/setup-python@v4
         with:
           python-version: "3.12.7"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pandas scikit-learn mlflow joblib dagshub
+
       - name: Verify MLproject file
         run: |
           ls -la
@@ -32,6 +35,16 @@ jobs:
             echo "MLproject file not found!"
             exit 1
           fi
+
+      - name: Verify dataset file
+        run: |
+          if [ -f "dataset/processed/iris_processed.csv" ]; then
+            echo "Dataset file found!"
+          else
+            echo "Dataset file not found!"
+            exit 1
+          fi
+
       - name: Run MLflow project for training
         env:
           MLFLOW_TRACKING_URI: https://dagshub.com/Sidqiamn/Eksperimen_SML_Sidqi.mlflow
@@ -42,7 +55,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
           AWS_DEFAULT_REGION: us-east-1
         run: |
-          mlflow run . -e train --env-manager=local
+          mlflow run . -e train
+
       - name: Commit trained model
         run: |
           git config --global user.name 'GitHub Action'
