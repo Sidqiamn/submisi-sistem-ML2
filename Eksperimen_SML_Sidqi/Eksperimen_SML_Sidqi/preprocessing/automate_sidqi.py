@@ -5,7 +5,7 @@ import os
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 # Buat direktori dataset/processed jika belum ada
-output_dir = 'Eksperimen_SML_Sidqi/dataset/processed'
+output_dir = 'Eksperimen_SML_Sidqi/Eksperimen_SML_Sidqi/dataset/processed'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
