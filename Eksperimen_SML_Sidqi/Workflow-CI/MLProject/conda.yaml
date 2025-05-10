@@ -1,0 +1,13 @@
+name: mlflow-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12.7
+  - pip
+  - pip:
+      - pandas
+      - scikit-learn
+      - mlflow==2.14.3
+      - joblib
+      - dagshub
