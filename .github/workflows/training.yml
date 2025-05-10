@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas scikit-learn mlflow joblib dagshub
+          pip install pandas scikit-learn mlflow==2.14.3 joblib dagshub
 
       - name: Verify MLproject file
         run: |
@@ -64,6 +64,7 @@ jobs:
           echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION"
           python --version
+          mlflow --version
           pip list
 
       - name: Run MLflow project for training
@@ -77,7 +78,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           cd Eksperimen_SML_Sidqi
-          mlflow run . -e train --run-name
+          mlflow run . -e train --env-manager=local
 
       - name: Commit trained model
         run: |
