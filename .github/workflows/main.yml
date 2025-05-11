@@ -39,7 +39,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add Eksperimen_SML_Sidqi/Eksperimen_SML_Sidqi/dataset/processed/iris_processed.csv
+          git add Eksperimen_SML_Sidqi/dataset/processed/iris_processed.csv
           git commit -m "Update processed dataset" || echo "No changes to commit"
 
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Sidqiamn/submisi-sistem-ML2.git
